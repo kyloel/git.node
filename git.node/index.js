@@ -4,7 +4,8 @@ var ph = require('path')
 var init = function(path)
 {
     var files = ['config', 'description', 'HEAD', 'index'];
-    var folders = ['branches', 'hooks', 'info', ['objects', 'objects/info', 'objects/pack'], , 'refs'];
+    var folders = ['branches', 'hooks', 'info', 'refs'];
+    var foldersInObjects = ['objects/info', 'objects/pack']
     fs.mkdir(path, function (err) {
     console.log(path);
         if (err) throw err;
@@ -21,6 +22,16 @@ var init = function(path)
             fs.mkdir(ph.join(path, item), function (err) {
                 console.log(ph.join(path, item));
                 if (err) throw err;
+            });  
+        });
+        fs.mkdir(ph.join(path, 'objects'), function (err) {
+            console.log(ph.join(path, 'objects'));
+            if (err) throw err;
+            foldersInObjects.forEach(function(item) {
+                fs.mkdir(ph.join(path, item), function (err) {
+                    console.log(ph.join(path, item));
+                    if (err) throw err;
+                });  
             });
         });
     });
